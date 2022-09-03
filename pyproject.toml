@@ -1,5 +1,8 @@
 [tool.poetry]
 name = "temporalio-village"
+packages = [
+    {include = "temporalio"}
+]
 version = "0.1b1"
 description = "Temporal.io Python SDK"
 license = "MIT"
@@ -40,7 +43,7 @@ cibuildwheel = "^2.7.0"
 isort = "^5.10.1"
 mypy = "^0.961"
 mypy-protobuf = "^3.2.0"
-protoc-wheel-0 = "^21.1"
+# protoc-wheel-0 = "^21.1"
 pydantic = "^1.9.1"
 pydocstyle = "^6.1.1"
 # TODO(cretz): Update when https://github.com/twisted/pydoctor/pull/595 released

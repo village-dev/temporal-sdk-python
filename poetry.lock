@@ -577,14 +577,6 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
-name = "protoc-wheel-0"
-version = "21.1"
-description = "Google Protocol buffers compiler"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "py"
 version = "1.11.0"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
@@ -1025,7 +1017,7 @@ opentelemetry = ["opentelemetry-api", "opentelemetry-sdk"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "4ac5554fbd01a6b1e3de66e480dc99f669d47ac93fff2dbacfbf7b1db4b3cac9"
+content-hash = "5c87221a738eb354b7f748bd790ef87de19a5036b2a0f28f361c04ca29cf0d28"
 
 [metadata.files]
 appdirs = [
@@ -1405,12 +1397,6 @@ protobuf = [
     {file = "protobuf-4.21.5-py2.py3-none-any.whl", hash = "sha256:bf711b451212dc5b0fa45ae7dada07d8e71a4b0ff0bc8e4783ee145f47ac4f82"},
     {file = "protobuf-4.21.5-py3-none-any.whl", hash = "sha256:3ec6f5b37935406bb9df9b277e79f8ed81d697146e07ef2ba8a5a272fb24b2c9"},
     {file = "protobuf-4.21.5.tar.gz", hash = "sha256:eb1106e87e095628e96884a877a51cdb90087106ee693925ec0a300468a9be3a"},
-]
-protoc-wheel-0 = [
-    {file = "protoc_wheel_0-21.1-py2.py3-none-macosx_10_6_x86_64.whl", hash = "sha256:5c183749d5652aa81b798e0f7aad88a4dd61e1946bd5887a13e20e7e4a6aca39"},
-    {file = "protoc_wheel_0-21.1-py2.py3-none-manylinux1_x86_64.whl", hash = "sha256:26fbd2ae551eace396ce8a6445469397758a27bde1649cfab8412be5f3049915"},
-    {file = "protoc_wheel_0-21.1-py2.py3-none-win32.whl", hash = "sha256:b7227cff92a56706d31524197e0f087df182f3c933a69f45805120ca7c4332ae"},
-    {file = "protoc_wheel_0-21.1-py2.py3-none-win_amd64.whl", hash = "sha256:fcd4286c5643abe97aced2b1667cf32603bdc7a978bb814a6a87bab9a82ab74a"},
 ]
 py = [
     {file = "py-1.11.0-py2.py3-none-any.whl", hash = "sha256:607c53218732647dff4acdfcd50cb62615cedf612e72d1724fb1a0cc6405b378"},
