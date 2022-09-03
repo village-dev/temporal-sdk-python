@@ -1473,6 +1473,7 @@ protoc-wheel = [
     {file = "protoc_wheel-21.1-py2.py3-none-macosx_10_6_x86_64.whl", hash = "sha256:37807ad53e52e525ce07c031385ca09187a36a6597e7bdbd029228572b5a133c"},
     {file = "protoc_wheel-21.1-py2.py3-none-macosx_11_0_arm64.whl", hash = "sha256:177032e1e92b97b4af684be72ecf8f6a2f8eee0e4dbdb9975203a348dda40ab9"},
     {file = "protoc_wheel-21.1-py2.py3-none-manylinux1_x86_64.whl", hash = "sha256:1a803f58cf0c3985fbf8fe1574a5784ca9ea52c12326a48d191246f66b989b35"},
+    {file = "protoc_wheel-21.1-py2.py3-none-manylinux2014_aarch64.whl", hash = "sha256:0cd02da2d89e0f3f1855b152d3fec88d612ef851201d8b5ccaa2d15737601692"},
     {file = "protoc_wheel-21.1-py2.py3-none-win32.whl", hash = "sha256:99194435252e343b2af67f95781130e345ad7f374c2e0d31aa6dea2b35830cdc"},
     {file = "protoc_wheel-21.1-py2.py3-none-win_amd64.whl", hash = "sha256:1ff3fa9689e190ce1cd049a6a748f61c88dff7450608ddcb3424953a11a93372"},
 ]
