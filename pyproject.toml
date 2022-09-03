@@ -25,7 +25,7 @@ exclude = ["temporalio/bridge/**/target"]
 script = "build.py"
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/temporalio_village/sdk-python/issues"
+"Bug Tracker" = "https://github.com/temporalio/sdk-python/issues"
 
 [tool.poetry.dependencies]
 grpcio = { version = "^1.48.1", optional = true }
@@ -39,7 +39,7 @@ typing-extensions = "^4.2.0"
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
 cibuildwheel = "^2.7.0"
-# grpcio-tools = "^1.48.0"
+grpcio-tools = "^1.48.0"
 isort = "^5.10.1"
 mypy = "^0.961"
 mypy-protobuf = "^3.2.0"
@@ -87,12 +87,12 @@ ignore_fail = "return_non_zero"
 # failing on inline table with "Invalid inline table value encountered" because
 # there's a comma (see https://github.com/uiri/toml/issues/348).
 [[tool.poe.tasks.test-dist-single.sequence]]
-cmd = "pip install --no-index --find-links=./dist temporalio_village"
+cmd = "pip install --no-index --find-links=./dist village_temporalio"
 [[tool.poe.tasks.test-dist-single.sequence]]
 cmd = "pytest -k test_activity_hello"
 env = { TEMPORAL_INTEGRATION_TEST = "1" }
 [[tool.poe.tasks.test-dist-single.sequence]]
-cmd = "pip uninstall temporalio_village -y"
+cmd = "pip uninstall village_temporalio -y"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
