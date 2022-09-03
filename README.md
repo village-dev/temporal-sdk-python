@@ -11,9 +11,9 @@ execute asynchronous long-running business logic in a scalable and resilient way
 
 Also see:
 
-* [Code Samples](https://github.com/temporalio/samples-python)
-* [API Documentation](https://python.temporal.io)
-* [Application Development Guide](https://docs.temporal.io/application-development?lang=python)
+- [Code Samples](https://github.com/temporalio/samples-python)
+- [API Documentation](https://python.temporal.io)
+- [Application Development Guide](https://docs.temporal.io/application-development?lang=python)
 
 In addition to features common across all Temporal SDKs, the Python SDK also has the following interesting features:
 
@@ -46,10 +46,10 @@ Install the `temporalio` package from [PyPI](https://pypi.org/project/temporalio
 
 These steps can be followed to use with a virtual environment and `pip`:
 
-* [Create a virtual environment](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-virtual-environments)
-* Update `pip` - `python -m pip install -U pip`
-  * Needed because older versions of `pip` may not pick the right wheel
-* Install Temporal SDK - `python -m pip install temporalio`
+- [Create a virtual environment](https://packaging.python.org/en/latest/tutorials/installing-packages/#creating-virtual-environments)
+- Update `pip` - `python -m pip install -U pip`
+  - Needed because older versions of `pip` may not pick the right wheel
+- Install Temporal SDK - `python -m pip install temporalio`
 
 The SDK is now ready for use. To build from source, see "Building" near the end of this documentation.
 
@@ -150,16 +150,16 @@ async def main():
 
 Some things to note about the above code:
 
-* A `Client` does not have an explicit "close"
-* To enable TLS, the `tls` argument to `connect` can be set to `True` or a `TLSConfig` object
-* A single positional argument can be passed to `start_workflow`. If there are multiple arguments, only the
+- A `Client` does not have an explicit "close"
+- To enable TLS, the `tls` argument to `connect` can be set to `True` or a `TLSConfig` object
+- A single positional argument can be passed to `start_workflow`. If there are multiple arguments, only the
   non-type-safe form of `start_workflow` can be used (i.e. the one accepting a string workflow name) and it must be in
   the `args` keyword argument.
-* The `handle` represents the workflow that was started and can be used for more than just getting the result
-* Since we are just getting the handle and waiting on the result, we could have called `client.execute_workflow` which
+- The `handle` represents the workflow that was started and can be used for more than just getting the result
+- Since we are just getting the handle and waiting on the result, we could have called `client.execute_workflow` which
   does the same thing
-* Clients can have many more options not shown here (e.g. data converters and interceptors)
-* A string can be used instead of the method reference to call a workflow by name (e.g. if defined in another language)
+- Clients can have many more options not shown here (e.g. data converters and interceptors)
+- A string can be used instead of the method reference to call a workflow by name (e.g. if defined in another language)
 
 Clients also provide a shallow copy of their config for use in making slightly different clients backed by the same
 connection. For instance, given the `client` above, this is how to have a client in another namespace:
@@ -179,16 +179,16 @@ the latter converts bytes to bytes (e.g. for compression or encryption).
 
 The default data converter supports converting multiple types including:
 
-* `None`
-* `bytes`
-* `google.protobuf.message.Message` - As JSON when encoding, but has ability to decode binary proto from other languages
-* Anything that can be converted to JSON including:
-  * Anything that [`json.dump`](https://docs.python.org/3/library/json.html#json.dump) supports natively
-  * [dataclasses](https://docs.python.org/3/library/dataclasses.html)
-  * Iterables including ones JSON dump may not support by default, e.g. `set`
-  * Any class with a `dict()` method and a static `parse_obj()` method, e.g.
+- `None`
+- `bytes`
+- `google.protobuf.message.Message` - As JSON when encoding, but has ability to decode binary proto from other languages
+- Anything that can be converted to JSON including:
+  - Anything that [`json.dump`](https://docs.python.org/3/library/json.html#json.dump) supports natively
+  - [dataclasses](https://docs.python.org/3/library/dataclasses.html)
+  - Iterables including ones JSON dump may not support by default, e.g. `set`
+  - Any class with a `dict()` method and a static `parse_obj()` method, e.g.
     [Pydantic models](https://pydantic-docs.helpmanual.io/usage/models)
-  * [IntEnum](https://docs.python.org/3/library/enum.html) based enumerates
+  - [IntEnum](https://docs.python.org/3/library/enum.html) based enumerates
 
 For converting from JSON, the workflow/activity type hint is taken into account to convert to the proper type. Care has
 been taken to support all common typings including `Optional`, `Union`, all forms of iterables and mappings, `NewType`,
@@ -221,9 +221,9 @@ async def run_worker(stop_event: asyncio.Event):
 
 Some things to note about the above code:
 
-* This creates/uses the same client that is used for starting workflows
-* While this example accepts a stop event and uses `async with`, `run()` and `shutdown()` may be used instead
-* Workers can have many more options not shown here (e.g. data converters and interceptors)
+- This creates/uses the same client that is used for starting workflows
+- While this example accepts a stop event and uses `async with`, `run()` and `shutdown()` may be used instead
+- Workers can have many more options not shown here (e.g. data converters and interceptors)
 
 ### Workflows
 
@@ -265,7 +265,7 @@ class GreetingWorkflow:
                 start_to_close_timeout=timedelta(seconds=5),
             )
             workflow.logger.debug("Greeting set to %s", self._current_greeting)
-            
+
             # Wait for salutation update or complete signal (this can be
             # cancelled)
             await asyncio.wait(
@@ -296,42 +296,42 @@ async def create_greeting_activity(info: GreetingInfo) -> str:
 
 Some things to note about the above code:
 
-* This workflow continually updates the queryable current greeting when signalled and can complete with the greeting on
+- This workflow continually updates the queryable current greeting when signalled and can complete with the greeting on
   a different signal
-* Workflows are always classes and must have a single `@workflow.run` which is an `async def` function
-* Workflow code must be deterministic. This means no threading, no randomness, no external calls to processes, no
+- Workflows are always classes and must have a single `@workflow.run` which is an `async def` function
+- Workflow code must be deterministic. This means no threading, no randomness, no external calls to processes, no
   network IO, and no global state mutation. All code must run in the implicit `asyncio` event loop and be deterministic.
-* `@activity.defn` is explained in a later section. For normal simple string concatenation, this would just be done in
+- `@activity.defn` is explained in a later section. For normal simple string concatenation, this would just be done in
   the workflow. The activity is for demonstration purposes only.
-* `workflow.execute_activity(create_greeting_activity, ...` is actually a typed signature, and MyPy will fail if the
+- `workflow.execute_activity(create_greeting_activity, ...` is actually a typed signature, and MyPy will fail if the
   `self._greeting_info` parameter is not a `GreetingInfo`
 
 Here are the decorators that can be applied:
 
-* `@workflow.defn` - Defines a workflow class
-  * Must be defined on the class given to the worker (ignored if present on a base class)
-  * Can have a `name` param to customize the workflow name, otherwise it defaults to the unqualified class name
-* `@workflow.run` - Defines the primary workflow run method
-  * Must be defined on the same class as `@workflow.defn`, not a base class (but can _also_ be defined on the same
+- `@workflow.defn` - Defines a workflow class
+  - Must be defined on the class given to the worker (ignored if present on a base class)
+  - Can have a `name` param to customize the workflow name, otherwise it defaults to the unqualified class name
+- `@workflow.run` - Defines the primary workflow run method
+  - Must be defined on the same class as `@workflow.defn`, not a base class (but can _also_ be defined on the same
     method of a base class)
-  * Exactly one method name must have this decorator, no more or less
-  * Must be defined on an `async def` method
-  * The method's arguments are the workflow's arguments
-  * The first parameter must be `self`, followed by positional arguments. Best practice is to only take a single
+  - Exactly one method name must have this decorator, no more or less
+  - Must be defined on an `async def` method
+  - The method's arguments are the workflow's arguments
+  - The first parameter must be `self`, followed by positional arguments. Best practice is to only take a single
     argument that is an object/dataclass of fields that can be added to as needed.
-* `@workflow.signal` - Defines a method as a signal
-  * Can be defined on an `async` or non-`async` function at any hierarchy depth, but if decorated method is overridden,
+- `@workflow.signal` - Defines a method as a signal
+  - Can be defined on an `async` or non-`async` function at any hierarchy depth, but if decorated method is overridden,
     the override must also be decorated
-  * The method's arguments are the signal's arguments
-  * Can have a `name` param to customize the signal name, otherwise it defaults to the unqualified method name
-  * Can have `dynamic=True` which means all otherwise unhandled signals fall through to this. If present, cannot have
+  - The method's arguments are the signal's arguments
+  - Can have a `name` param to customize the signal name, otherwise it defaults to the unqualified method name
+  - Can have `dynamic=True` which means all otherwise unhandled signals fall through to this. If present, cannot have
     `name` argument, and method parameters must be `self`, a string signal name, and a `*args` varargs param.
-  * Non-dynamic method can only have positional arguments. Best practice is to only take a single argument that is an
+  - Non-dynamic method can only have positional arguments. Best practice is to only take a single argument that is an
     object/dataclass of fields that can be added to as needed.
-  * Return value is ignored
-* `@workflow.query` - Defines a method as a query
-  * All the same constraints as `@workflow.signal` but should return a value
-  * Temporal queries should never mutate anything in the workflow
+  - Return value is ignored
+- `@workflow.query` - Defines a method as a query
+  - All the same constraints as `@workflow.signal` but should return a value
+  - Temporal queries should never mutate anything in the workflow
 
 #### Running
 
@@ -354,60 +354,60 @@ async def create_greeting(client: Client) -> str:
 
 Some things to note about the above code:
 
-* This uses the `GreetingWorkflow` from the previous section
-* The result of calling this function is `"Aloha, my name!"`
-* `id` and `task_queue` are required for running a workflow
-* `client.start_workflow` is typed, so MyPy would fail if `"my name"` were something besides a string
-* `handle.signal` is typed, so MyPy would fail if `"Aloha"` were something besides a string or if we provided a
+- This uses the `GreetingWorkflow` from the previous section
+- The result of calling this function is `"Aloha, my name!"`
+- `id` and `task_queue` are required for running a workflow
+- `client.start_workflow` is typed, so MyPy would fail if `"my name"` were something besides a string
+- `handle.signal` is typed, so MyPy would fail if `"Aloha"` were something besides a string or if we provided a
   parameter to the parameterless `complete_with_greeting`
-* `handle.result` is typed to the workflow itself, so MyPy would fail if we said this `create_greeting` returned
+- `handle.result` is typed to the workflow itself, so MyPy would fail if we said this `create_greeting` returned
   something besides a string
 
 #### Invoking Activities
 
-* Activities are started with non-async `workflow.start_activity()` which accepts either an activity function reference
+- Activities are started with non-async `workflow.start_activity()` which accepts either an activity function reference
   or a string name.
-* A single argument to the activity is positional. Multiple arguments are not supported in the type-safe form of
+- A single argument to the activity is positional. Multiple arguments are not supported in the type-safe form of
   start/execute activity and must be supplied via the `args` keyword argument.
-* Activity options are set as keyword arguments after the activity arguments. At least one of `start_to_close_timeout`
+- Activity options are set as keyword arguments after the activity arguments. At least one of `start_to_close_timeout`
   or `schedule_to_close_timeout` must be provided.
-* The result is an activity handle which is an `asyncio.Task` and supports basic task features
-* An async `workflow.execute_activity()` helper is provided which takes the same arguments as
+- The result is an activity handle which is an `asyncio.Task` and supports basic task features
+- An async `workflow.execute_activity()` helper is provided which takes the same arguments as
   `workflow.start_activity()` and `await`s on the result. This should be used in most cases unless advanced task
   capabilities are needed.
-* Local activities work very similarly except the functions are `workflow.start_local_activity()` and
+- Local activities work very similarly except the functions are `workflow.start_local_activity()` and
   `workflow.execute_local_activity()`
-* Activities can be methods of a class. Invokers should use `workflow.start_activity_method()`,
+- Activities can be methods of a class. Invokers should use `workflow.start_activity_method()`,
   `workflow.execute_activity_method()`, `workflow.start_local_activity_method()`, and
   `workflow.execute_local_activity_method()` instead.
-* Activities can callable classes (i.e. that define `__call__`). Invokers should use `workflow.start_activity_class()`,
+- Activities can callable classes (i.e. that define `__call__`). Invokers should use `workflow.start_activity_class()`,
   `workflow.execute_activity_class()`, `workflow.start_local_activity_class()`, and
   `workflow.execute_local_activity_class()` instead.
 
 #### Invoking Child Workflows
 
-* Child workflows are started with async `workflow.start_child_workflow()` which accepts either a workflow run method
+- Child workflows are started with async `workflow.start_child_workflow()` which accepts either a workflow run method
   reference or a string name. The arguments to the workflow are positional.
-* A single argument to the child workflow is positional. Multiple arguments are not supported in the type-safe form of
+- A single argument to the child workflow is positional. Multiple arguments are not supported in the type-safe form of
   start/execute child workflow and must be supplied via the `args` keyword argument.
-* Child workflow options are set as keyword arguments after the arguments. At least `id` must be provided.
-* The `await` of the start does not complete until the start has been accepted by the server
-* The result is a child workflow handle which is an `asyncio.Task` and supports basic task features. The handle also has
+- Child workflow options are set as keyword arguments after the arguments. At least `id` must be provided.
+- The `await` of the start does not complete until the start has been accepted by the server
+- The result is a child workflow handle which is an `asyncio.Task` and supports basic task features. The handle also has
   some child info and supports signalling the child workflow
-* An async `workflow.execute_child_workflow()` helper is provided which takes the same arguments as
+- An async `workflow.execute_child_workflow()` helper is provided which takes the same arguments as
   `workflow.start_child_workflow()` and `await`s on the result. This should be used in most cases unless advanced task
   capabilities are needed.
 
 #### Timers
 
-* A timer is represented by normal `asyncio.sleep()`
-* Timers are also implicitly started on any `asyncio` calls with timeouts (e.g. `asyncio.wait_for`)
-* Timers are Temporal server timers, not local ones, so sub-second resolution rarely has value
+- A timer is represented by normal `asyncio.sleep()`
+- Timers are also implicitly started on any `asyncio` calls with timeouts (e.g. `asyncio.wait_for`)
+- Timers are Temporal server timers, not local ones, so sub-second resolution rarely has value
 
 #### Conditions
 
-* `workflow.wait_condition` is an async function that doesn't return until a provided callback returns true
-* A `timeout` can optionally be provided which will throw a `asyncio.TimeoutError` if reached (internally backed by
+- `workflow.wait_condition` is an async function that doesn't return until a provided callback returns true
+- A `timeout` can optionally be provided which will throw a `asyncio.TimeoutError` if reached (internally backed by
   `asyncio.wait_for` which uses a timer)
 
 #### Asyncio and Cancellation
@@ -415,20 +415,20 @@ Some things to note about the above code:
 Workflows are backed by a custom [asyncio](https://docs.python.org/3/library/asyncio.html) event loop. This means many
 of the common `asyncio` calls work as normal. Some asyncio features are disabled such as:
 
-* Thread related calls such as `to_thread()`, `run_coroutine_threadsafe()`, `loop.run_in_executor()`, etc
-* Calls that alter the event loop such as `loop.close()`, `loop.stop()`, `loop.run_forever()`,
+- Thread related calls such as `to_thread()`, `run_coroutine_threadsafe()`, `loop.run_in_executor()`, etc
+- Calls that alter the event loop such as `loop.close()`, `loop.stop()`, `loop.run_forever()`,
   `loop.set_task_factory()`, etc
-* Calls that use a specific time such as `loop.call_at()`
-* Calls that use anything external such as networking, subprocesses, disk IO, etc
+- Calls that use a specific time such as `loop.call_at()`
+- Calls that use anything external such as networking, subprocesses, disk IO, etc
 
 Cancellation is done the same way as `asyncio`. Specifically, a task can be requested to be cancelled but does not
 necessarily have to respect that cancellation immediately. This also means that `asyncio.shield()` can be used to
 protect against cancellation. The following tasks, when cancelled, perform a Temporal cancellation:
 
-* Activities - when the task executing an activity is cancelled, a cancellation request is sent to the activity
-* Child workflows - when the task starting or executing a child workflow is cancelled, a cancellation request is sent to
+- Activities - when the task executing an activity is cancelled, a cancellation request is sent to the activity
+- Child workflows - when the task starting or executing a child workflow is cancelled, a cancellation request is sent to
   cancel the child workflow
-* Timers - when the task executing a timer is cancelled (whether started via sleep or timeout), the timer is cancelled
+- Timers - when the task executing a timer is cancelled (whether started via sleep or timeout), the timer is cancelled
 
 When the workflow itself is requested to cancel, `Task.cancel` is called on the main workflow task. Therefore,
 `asyncio.CancelledError` can be caught in order to handle the cancel gracefully.
@@ -448,22 +448,22 @@ are not delivered, only the first. If the workflow chooses swallow a cancellatio
 While running in a workflow, in addition to features documented elsewhere, the following items are available from the
 `temporalio.workflow` package:
 
-* `continue_as_new()` - Async function to stop the workflow immediately and continue as new
-* `info()` - Returns information about the current workflow
-* `logger` - A logger for use in a workflow (properly skips logging on replay)
-* `now()` - Returns the "current time" from the workflow's perspective
+- `continue_as_new()` - Async function to stop the workflow immediately and continue as new
+- `info()` - Returns information about the current workflow
+- `logger` - A logger for use in a workflow (properly skips logging on replay)
+- `now()` - Returns the "current time" from the workflow's perspective
 
 #### Exceptions
 
-* Workflows can raise exceptions to fail the workflow
-* Using `temporalio.exceptions.ApplicationError`, exceptions can be marked as non-retryable or include details
+- Workflows can raise exceptions to fail the workflow
+- Using `temporalio.exceptions.ApplicationError`, exceptions can be marked as non-retryable or include details
 
 #### External Workflows
 
-* `workflow.get_external_workflow_handle()` inside a workflow returns a handle to interact with another workflow
-* `workflow.get_external_workflow_handle_for()` can be used instead for a type safe handle
-* `await handle.signal()` can be called on the handle to signal the external workflow
-* `await handle.cancel()` can be called on the handle to send a cancel to the external workflow
+- `workflow.get_external_workflow_handle()` inside a workflow returns a handle to interact with another workflow
+- `workflow.get_external_workflow_handle_for()` can be used instead for a type safe handle
+- `await handle.signal()` can be called on the handle to signal the external workflow
+- `await handle.cancel()` can be called on the handle to send a cancel to the external workflow
 
 #### Testing
 
@@ -597,14 +597,14 @@ async def say_hello_activity(name: str) -> str:
 
 Some things to note about activity definitions:
 
-* The `say_hello_activity` is `async` which is the recommended activity type (see "Types of Activities" below)
-* A custom name for the activity can be set with a decorator argument, e.g. `@activity.defn(name="my activity")`
-* Long running activities should regularly heartbeat and handle cancellation
-* Activities can only have positional arguments. Best practice is to only take a single argument that is an
+- The `say_hello_activity` is `async` which is the recommended activity type (see "Types of Activities" below)
+- A custom name for the activity can be set with a decorator argument, e.g. `@activity.defn(name="my activity")`
+- Long running activities should regularly heartbeat and handle cancellation
+- Activities can only have positional arguments. Best practice is to only take a single argument that is an
   object/dataclass of fields that can be added to as needed.
-* Activities can be defined on methods instead of top-level functions. This allows the instance to carry state that an
+- Activities can be defined on methods instead of top-level functions. This allows the instance to carry state that an
   activity may need (e.g. a DB connection). The instance method should be what is registered with the worker.
-* Activities can also be defined on callable classes (i.e. classes with `__call__`). An instance of the class should be
+- Activities can also be defined on callable classes (i.e. classes with `__call__`). An instance of the class should be
   what is registered with the worker.
 
 #### Types of Activities
@@ -663,16 +663,16 @@ During activity execution, an implicit activity context is set as a
 [context variable](https://docs.python.org/3/library/contextvars.html). The context variable itself is not visible, but
 calls in the `temporalio.activity` package make use of it. Specifically:
 
-* `in_activity()` - Whether an activity context is present
-* `info()` - Returns the immutable info of the currently running activity
-* `heartbeat(*details)` - Record a heartbeat
-* `is_cancelled()` - Whether a cancellation has been requested on this activity
-* `wait_for_cancelled()` - `async` call to wait for cancellation request
-* `wait_for_cancelled_sync(timeout)` - Synchronous blocking call to wait for cancellation request
-* `is_worker_shutdown()` - Whether the worker has started graceful shutdown
-* `wait_for_worker_shutdown()` - `async` call to wait for start of graceful worker shutdown
-* `wait_for_worker_shutdown_sync(timeout)` - Synchronous blocking call to wait for start of graceful worker shutdown
-* `raise_complete_async()` - Raise an error that this activity will be completed asynchronously (i.e. after return of
+- `in_activity()` - Whether an activity context is present
+- `info()` - Returns the immutable info of the currently running activity
+- `heartbeat(*details)` - Record a heartbeat
+- `is_cancelled()` - Whether a cancellation has been requested on this activity
+- `wait_for_cancelled()` - `async` call to wait for cancellation request
+- `wait_for_cancelled_sync(timeout)` - Synchronous blocking call to wait for cancellation request
+- `is_worker_shutdown()` - Whether the worker has started graceful shutdown
+- `wait_for_worker_shutdown()` - `async` call to wait for start of graceful worker shutdown
+- `wait_for_worker_shutdown_sync(timeout)` - Synchronous blocking call to wait for start of graceful worker shutdown
+- `raise_complete_async()` - Raise an error that this activity will be completed asynchronously (i.e. after return of
   the activity function in a separate client call)
 
 With the exception of `in_activity()`, if any of the functions are called outside of an activity context, an error
@@ -708,10 +708,10 @@ Unit testing an activity or any code that could run in an activity is done via t
 be invoked inside the activity context. The following are attributes/methods on the environment that can be used to
 affect calls activity code might make to functions on the `temporalio.activity` package.
 
-* `info` property can be set to customize what is returned from `activity.info()`
-* `on_heartbeat` property can be set to handle `activity.heartbeat()` calls
-* `cancel()` can be invoked to simulate a cancellation of the activity
-* `worker_shutdown()` can be invoked to simulate a worker shutdown during execution of the activity
+- `info` property can be set to customize what is returned from `activity.info()`
+- `on_heartbeat` property can be set to handle `activity.heartbeat()` calls
+- `cancel()` can be invoked to simulate a cancellation of the activity
+- `worker_shutdown()` can be invoked to simulate a worker shutdown during execution of the activity
 
 ### Workflow Replay
 
@@ -752,10 +752,10 @@ The Python SDK is built to work with Python 3.7 and newer. It is built using
 
 To build the SDK from source for use as a dependency, the following prerequisites are required:
 
-* [Python](https://www.python.org/) >= 3.7
-* [Rust](https://www.rust-lang.org/)
-* [poetry](https://github.com/python-poetry/poetry) (e.g. `python -m pip install poetry`)
-* [poe](https://github.com/nat-n/poethepoet) (e.g. `python -m pip install poethepoet`)
+- [Python](https://www.python.org/) >= 3.7
+- [Rust](https://www.rust-lang.org/)
+- [poetry](https://github.com/python-poetry/poetry) (e.g. `python -m pip install poetry`)
+- [poe](https://github.com/nat-n/poethepoet) (e.g. `python -m pip install poethepoet`)
 
 macOS note: If errors are encountered, it may be better to install Python and Rust as recommended from their websites
 instead of via `brew`.
@@ -779,7 +779,7 @@ poetry install --no-root
 Now perform the release build:
 
 > This will take a while because Rust will compile the core project in release mode (see [Local SDK development
-environment](#local-sdk-development-environment) for the quicker approach to local development).
+> environment](#local-sdk-development-environment) for the quicker approach to local development).
 
 ```bash
 poetry build
@@ -886,10 +886,10 @@ poe test
 
 ### Style
 
-* Mostly [Google Style Guide](https://google.github.io/styleguide/pyguide.html). Notable exceptions:
-  * We use [Black](https://github.com/psf/black) for formatting, so that takes precedence
-  * In tests and example code, can import individual classes/functions to make it more readable. Can also do this for
+- Mostly [Google Style Guide](https://google.github.io/styleguide/pyguide.html). Notable exceptions:
+  - We use [Black](https://github.com/psf/black) for formatting, so that takes precedence
+  - In tests and example code, can import individual classes/functions to make it more readable. Can also do this for
     rarely in library code for some Python common items (e.g. `dataclass` or `partial`), but not allowed to do this for
     any `temporalio` packages (except `temporalio.types`) or any classes/functions that aren't clear when unqualified.
-  * We allow relative imports for private packages
-  * We allow `@staticmethod`
+  - We allow relative imports for private packages
+  - We allow `@staticmethod`
