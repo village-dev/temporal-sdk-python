@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "village-temporal"
+name = "village-temporalio"
 packages = [
     {include = "temporalio"}
 ]
