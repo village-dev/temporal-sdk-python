@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "temporalio"
+name = "temporalio-village"
 version = "0.1b1"
 description = "Temporal.io Python SDK"
 license = "MIT"
@@ -22,13 +22,13 @@ exclude = ["temporalio/bridge/**/target"]
 script = "build.py"
 
 [tool.poetry.urls]
-"Bug Tracker" = "https://github.com/temporalio/sdk-python/issues"
+"Bug Tracker" = "https://github.com/temporalio_village/sdk-python/issues"
 
 [tool.poetry.dependencies]
-grpcio = { version = "^1.48.0", optional = true }
+# grpcio = { version = "^1.48.0", optional = true }
 opentelemetry-api = { version = "^1.11.1", optional = true }
 opentelemetry-sdk = { version = "^1.11.1", optional = true }
-protobuf = "^3.20.1"
+protobuf = "^4.21.5"
 python = "^3.7"
 types-protobuf = "^3.19.21"
 typing-extensions = "^4.2.0"
@@ -36,7 +36,7 @@ typing-extensions = "^4.2.0"
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
 cibuildwheel = "^2.7.0"
-grpcio-tools = "^1.48.0"
+# grpcio-tools = "^1.48.0"
 isort = "^5.10.1"
 mypy = "^0.961"
 mypy-protobuf = "^3.2.0"
@@ -49,14 +49,14 @@ pydoctor = { git = "https://github.com/cretz/pydoctor.git", branch = "overloads"
 pytest = "^7.1.2"
 pytest-asyncio = "^0.18.3"
 pytest-timeout = "^2.1.0"
-setuptools = "^65.0.0"
+setuptools = "^65.3.0"
 setuptools-rust = "^1.3.0"
 toml = "^0.10.2"
 twine = "^4.0.1"
 
 [tool.poetry.extras]
 opentelemetry = ["opentelemetry-api", "opentelemetry-sdk"]
-grpc = ["grpc"]
+# grpc = ["grpc"]
 
 [tool.poe.tasks]
 build-develop = ["build-bridge-develop"]
@@ -84,12 +84,12 @@ ignore_fail = "return_non_zero"
 # failing on inline table with "Invalid inline table value encountered" because
 # there's a comma (see https://github.com/uiri/toml/issues/348).
 [[tool.poe.tasks.test-dist-single.sequence]]
-cmd = "pip install --no-index --find-links=./dist temporalio"
+cmd = "pip install --no-index --find-links=./dist temporalio_village"
 [[tool.poe.tasks.test-dist-single.sequence]]
 cmd = "pytest -k test_activity_hello"
 env = { TEMPORAL_INTEGRATION_TEST = "1" }
 [[tool.poe.tasks.test-dist-single.sequence]]
-cmd = "pip uninstall temporalio -y"
+cmd = "pip uninstall temporalio_village -y"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
