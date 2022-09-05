@@ -3,7 +3,7 @@ name = "village-temporalio"
 packages = [
     {include = "temporalio"}
 ]
-version = "0.1b1"
+version = "0.1b2"
 description = "Temporal.io Python SDK"
 license = "MIT"
 authors = ["Temporal Technologies Inc <sdk@temporal.io>"]
@@ -59,7 +59,7 @@ twine = "^4.0.1"
 
 [tool.poetry.extras]
 opentelemetry = ["opentelemetry-api", "opentelemetry-sdk"]
-grpc = ["grpc"]
+grpc = ["grpcio"]
 
 [tool.poe.tasks]
 build-develop = ["build-bridge-develop"]
