@@ -70,6 +70,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
+        python_version: ['3.7', '3.8', '3.9', '3.10']
         include:
           - os: ubuntu-latest
             package-suffix: linux-amd64
@@ -86,7 +87,6 @@ jobs:
           - os: windows-latest
             package-suffix: windows-amd64
             ci-arch: auto
-          - python_version: ['3.7', '3.8', '3.9', '3.10']
 
     runs-on: ${{ matrix.os }}
     steps:
